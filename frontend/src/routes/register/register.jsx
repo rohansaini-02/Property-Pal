@@ -53,36 +53,25 @@ function Register() {
   return (
     <div className="register">
       <div className="formContainer">
-        <div className="textSection">
-          <div className="logo">
-            <img src="/re-logo-design_731343-252.avif" alt="" />
+        <form onSubmit={handleSubmit}>
+          <div className="logoHeader">
+            <img src="/re-logo-design_731343-252.avif" alt="PropertyPal logo" />
             <span>PropertyPal</span>
           </div>
-          <div className="quote">
-            {isLoginView ? (
-              <>
-                <h2>Welcome Home</h2>
-                <p>A home is more than just walls and a roof—it is the foundation of your dreams, the security for your family's future, and the canvas where your lifetime memories are painted. We are here to help you take the next step on your journey toward owning the space you call your own.</p>
-              </>
-            ) : (
-              <>
-                <h2>Your Trust, Our Priority</h2>
-                <p>Discover verified properties, manage your real-time chats, and schedule direct tours on a decentralized platform built on buyer-seller trust.</p>
-              </>
-            )}
-          </div>
-        </div>
 
-        <form onSubmit={handleSubmit}>
           {isLoginView ? (
             <>
-              <h1>Welcome back</h1>
-              <p className="subtitle">Login to search verified properties and connect with owners.</p>
+              <h2>Welcome Home</h2>
+              <p className="subtitle">
+                Let's find the place where your future begins and lifetime memories are made.
+              </p>
             </>
           ) : (
             <>
-              <h1>Create an Account</h1>
-              <p className="subtitle">Join PropertyPal to buy, sell, or rent listings without any brokerage fees.</p>
+              <h2>Create an Account</h2>
+              <p className="subtitle">
+                Start your journey. Find, buy, or rent your dream home directly from owners.
+              </p>
             </>
           )}
 
