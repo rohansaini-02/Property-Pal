@@ -53,6 +53,26 @@ function Login() {
   return (
     <div className="login">
       <div className="formContainer">
+        <div className="textSection">
+          <div className="logo">
+            <img src="/re-logo-design_731343-252.avif" alt="" />
+            <span>PropertyPal</span>
+          </div>
+          <div className="quote">
+            {isLoginView ? (
+              <>
+                <h2>Welcome Home</h2>
+                <p>A home is more than just walls and a roof—it is the foundation of your dreams, the security for your family's future, and the canvas where your lifetime memories are painted. We are here to help you take the next step on your journey toward owning the space you call your own.</p>
+              </>
+            ) : (
+              <>
+                <h2>Your Trust, Our Priority</h2>
+                <p>Discover verified properties, manage your real-time chats, and schedule direct tours on a decentralized platform built on buyer-seller trust.</p>
+              </>
+            )}
+          </div>
+        </div>
+        
         <form onSubmit={handleSubmit}>
           {isLoginView ? (
             <>
@@ -141,19 +161,6 @@ function Login() {
       </div>
       <div className="imgContainer">
         <img src="/bg.png" alt="" />
-        <div className="infoOverlay">
-          {isLoginView ? (
-            <>
-              <h2>Welcome Home</h2>
-              <p>A home is more than just walls and a roof—it is the foundation of your dreams, the security for your family's future, and the canvas where your lifetime memories are painted. We are here to help you take the next step on your journey toward owning the space you call your own.</p>
-            </>
-          ) : (
-            <>
-              <h2>PropertyPal</h2>
-              <p>Discover verified properties, manage your real-time chats, and schedule direct tours on a decentralized platform built on buyer-seller trust.</p>
-            </>
-          )}
-        </div>
       </div>
     </div>
   );

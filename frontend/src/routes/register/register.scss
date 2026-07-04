@@ -10,12 +10,71 @@
     flex: 3;
     height: 100%;
     display: flex;
+    flex-direction: row;
     align-items: center;
     justify-content: center;
-    padding: 20px;
+    gap: 70px;
+    padding: 40px;
     animation: fadeInForm 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 
+    @include md {
+      flex-direction: column;
+      gap: 30px;
+      padding: 20px;
+    }
+
+    .textSection {
+      flex: 1.2;
+      max-width: 440px;
+      display: flex;
+      flex-direction: column;
+
+      @include md {
+        display: none;
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 28px;
+
+        img {
+          width: 42px;
+          height: 42px;
+          object-fit: contain;
+        }
+
+        span {
+          font-size: 24px;
+          font-weight: 800;
+          color: #2c3e50;
+          letter-spacing: -0.5px;
+        }
+      }
+
+      .quote {
+        h2 {
+          font-size: 38px;
+          font-weight: 800;
+          color: #2c3e50;
+          margin-bottom: 16px;
+          letter-spacing: -1px;
+          line-height: 1.2;
+        }
+
+        p {
+          font-size: 15px;
+          color: #5c6a79;
+          line-height: 1.7;
+          font-weight: 500;
+          margin: 0;
+        }
+      }
+    }
+
     form {
+      flex: 1;
       display: flex;
       flex-direction: column;
       gap: 20px;
@@ -206,39 +265,6 @@
         transform: scale(1.02);
       }
     }
-
-    .infoOverlay {
-      position: absolute;
-      bottom: 8%;
-      left: 10%;
-      right: 10%;
-      background: rgba(252, 245, 243, 0.65);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      padding: 30px;
-      border-radius: 16px;
-      border: 1px solid rgba(254, 206, 81, 0.3);
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.04);
-      animation: slideUpOverlay 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
-      opacity: 0;
-      transform: translateY(20px);
-
-      h2 {
-        font-size: 24px;
-        font-weight: 800;
-        color: #2c3e50;
-        margin-bottom: 8px;
-        letter-spacing: -0.5px;
-      }
-
-      p {
-        font-size: 14px;
-        color: #5c6a79;
-        line-height: 1.6;
-        font-weight: 500;
-        margin: 0;
-      }
-    }
   }
 }
 
@@ -246,17 +272,6 @@
   from {
     opacity: 0;
     transform: translateY(15px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes slideUpOverlay {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
   }
   to {
     opacity: 1;
