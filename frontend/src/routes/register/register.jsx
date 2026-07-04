@@ -36,6 +36,7 @@ function Register() {
       <div className="formContainer">
         <form onSubmit={handleSubmit}> 
           <h1>Create an Account</h1>
+          <p className="subtitle">Join PropertyPal to buy, sell, or rent listings without any brokerage fees.</p>
           <input name="username" type="text" placeholder="Username" />
           <input name="email" type="text" placeholder="Email" />
           <input name="password" type="password" placeholder="Password" />
@@ -46,6 +47,10 @@ function Register() {
       </div>
       <div className="imgContainer">
         <img src="/bg.png" alt="" />
+        <div className="infoOverlay">
+          <h2>PropertyPal</h2>
+          <p>Discover verified properties, manage your real-time chats, and schedule direct tours on a decentralized platform built on buyer-seller trust.</p>
+        </div>
       </div>
     </div>
   );

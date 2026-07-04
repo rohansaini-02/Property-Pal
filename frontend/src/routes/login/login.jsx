@@ -42,6 +42,7 @@ function Login() {
       <div className="formContainer">
         <form onSubmit={handleSubmit}>
           <h1>Welcome back</h1>
+          <p className="subtitle">Login to search verified properties and connect with owners.</p>
           <input name="username" required minLength={3} maxLength={20} type="text" placeholder="Username" />
           <input name="password" type="password" placeholder="Password" />
           <button disabled={IsLoading}>Login</button>
@@ -51,6 +52,10 @@ function Login() {
       </div>
       <div className="imgContainer">
         <img src="/bg.png" alt="" />
+        <div className="infoOverlay">
+          <h2>PropertyPal</h2>
+          <p>The smartest way to buy, sell, or rent real estate. Cut out brokers, browse verified listings, and interact directly with owners in real-time.</p>
+        </div>
       </div>
     </div>
   );
