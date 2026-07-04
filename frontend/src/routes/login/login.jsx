@@ -53,8 +53,8 @@ function Login() {
       <div className="imgContainer">
         <img src="/bg.png" alt="" />
         <div className="infoOverlay">
-          <h2>PropertyPal</h2>
-          <p>The smartest way to buy, sell, or rent real estate. Cut out brokers, browse verified listings, and interact directly with owners in real-time.</p>
+          <h2>Welcome Home</h2>
+          <p>A home is more than just walls and a roof—it is the foundation of your dreams, the security for your family's future, and the canvas where your lifetime memories are painted. We are here to help you take the next step on your journey toward owning the space you call your own.</p>
         </div>
       </div>
     </div>
