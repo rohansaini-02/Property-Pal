@@ -81,9 +81,9 @@ function Register() {
             name="username"
             required
             minLength={3}
-            maxLength={20}
+            maxLength={isLoginView ? 100 : 20}
             type="text"
-            placeholder="Username"
+            placeholder={isLoginView ? "Username or Email" : "Username"}
           />
 
           {!isLoginView && (

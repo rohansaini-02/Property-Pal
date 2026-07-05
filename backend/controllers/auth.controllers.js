@@ -41,8 +41,13 @@ export const login=async(req,res)=>{
 try{
     //  CHECK IF USERE EXISTS
 
-    const user = await prisma.user.findUnique({
-        where:{username}
+    const user = await prisma.user.findFirst({
+        where: {
+            OR: [
+                { username: username },
+                { email: username }
+            ]
+        }
     })
     if(!user) return res.status(401).json({message: "Invalid Credentials!"})
     // CHECH IF PASSWORD IS CORRECT
