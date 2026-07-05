@@ -3,7 +3,7 @@ import { createContext, useEffect, useState } from "react";
 // Create a context to manage the script loading state
 const CloudinaryScriptContext = createContext();
 
-function UploadWidget({ uwConfig, setPublicId, setAvatar, setState }) {
+function UploadWidget({ uwConfig, setState, children }) {
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
@@ -37,25 +37,25 @@ function UploadWidget({ uwConfig, setPublicId, setAvatar, setState }) {
         }
       );
 
-      document.getElementById("upload_widget").addEventListener(
-        "click",
-        function () {
-          myWidget.open();
-        },
-        false
-      );
+      myWidget.open();
     }
   };
 
   return (
     <CloudinaryScriptContext.Provider value={{ loaded }}>
-      <button
-        id="upload_widget"
-        className="cloudinary-button"
-        onClick={initializeCloudinaryWidget}
-      >
-        Upload Image
-      </button>
+      {children ? (
+        <div id="upload_widget" onClick={initializeCloudinaryWidget} style={{ display: "contents" }}>
+          {children}
+        </div>
+      ) : (
+        <button
+          id="upload_widget"
+          className="cloudinary-button"
+          onClick={initializeCloudinaryWidget}
+        >
+          Upload Image
+        </button>
+      )}
     </CloudinaryScriptContext.Provider>
   );
 }
