@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 function Pin({ item }) {
   return (
-    <Marker position={[item.latitude, item.longitude]}>
+    <Marker position={[parseFloat(item.latitude), parseFloat(item.longitude)]}>
       <Popup>
         <div className="popupContainer">
           <img src={item.img} alt="" />
