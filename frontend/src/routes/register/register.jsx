@@ -61,7 +61,7 @@ function Register() {
 
           {isLoginView ? (
             <>
-              <h2>Welcome Home</h2>
+              <h2>Welcome back</h2>
               <p className="subtitle">
                 Let's find the place where your future begins and lifetime memories are made.
               </p>

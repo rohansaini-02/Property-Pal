@@ -18,10 +18,10 @@ function Navbar() {
       <div className="left">
         <Link to="/" className="logo">
           <img src="/re-logo-design_731343-252.avif" alt="" />
-          <span>RealEstate</span>
+          <span>PropertyPal</span>
         </Link>
         <Link to="/">Home</Link>
-        <Link to="/list">Search</Link>
+        <Link to="/list">Properties</Link>
         <Link to="/contact">Contact</Link>
         <Link to="/about">About</Link>
       </div>
