@@ -1,24 +1,32 @@
 import { useState } from "react";
 import "./searchBar.scss";
-import {Link} from "react-router-dom"
+import { useNavigate } from "react-router-dom";
 
 const types = ["buy", "rent"];
 
 function SearchBar() {
   const [query, setQuery] = useState({
     type: "buy",
-    location: "",
-    minPrice: 0,
-    maxPrice: 0,
+    city: "",
+    minPrice: "",
+    maxPrice: "",
   });
+
+  const navigate = useNavigate();
 
   const switchType = (val) => {
     setQuery((prev) => ({ ...prev, type: val }));
   };
 
-  const handleChange = e =>{
-    setQuery((prev) => ({ ...prev, [e.target.name]:e.target.value }));
-  }
+  const handleChange = (e) => {
+    setQuery((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    navigate(`/list?type=${query.type}&city=${query.city}&minPrice=${query.minPrice}&maxPrice=${query.maxPrice}`);
+  };
+
   return (
     <div className="searchBar">
       <div className="type">
@@ -32,8 +40,15 @@ function SearchBar() {
           </button>
         ))}
       </div>
-      <form>
-        <input type="text" name="city" placeholder="city" onChange={handleChange} />
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          name="city"
+          placeholder="City"
+          onChange={handleChange}
+          value={query.city}
+          required
+        />
         <input
           type="number"
           name="minPrice"
@@ -41,6 +56,7 @@ function SearchBar() {
           max={10000000}
           placeholder="Min Price"
           onChange={handleChange}
+          value={query.minPrice}
         />
         <input
           type="number"
@@ -49,12 +65,11 @@ function SearchBar() {
           max={10000000}
           placeholder="Max Price"
           onChange={handleChange}
+          value={query.maxPrice}
         />
-        <Link to={`/list?type=${query.type}&city=${query.city}&minPrice=${query.minPrice}&maxPrice=${query.maxPrice}`}>
-        <button>
-          <img src="/search.png" alt="" />
+        <button type="submit">
+          <img src="/search.png" alt="Search" />
         </button>
-        </Link>
       </form>
     </div>
   );

@@ -20,6 +20,37 @@
       gap: 50px;
       overflow-y: scroll;
       padding-bottom: 50px;
+
+      .emptyState {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 60px 30px;
+        flex: 1;
+        animation: fadeIn 0.5s ease forwards;
+
+        svg {
+          margin-bottom: 20px;
+          opacity: 0.6;
+        }
+
+        h3 {
+          font-size: 22px;
+          font-weight: 700;
+          color: #2c3e50;
+          margin: 0 0 10px 0;
+        }
+
+        p {
+          font-size: 14px;
+          color: #94a3b8;
+          line-height: 1.6;
+          max-width: 360px;
+          margin: 0;
+        }
+      }
     }
   }
   .mapContainer {
@@ -30,5 +61,16 @@
     @include md{
       display: none;
     }
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }

@@ -4,27 +4,58 @@ import jwt from 'jsonwebtoken'
 export const getPosts = async (req,res) =>{
     const query = req.query
     try{
+        const where = {};
+
+        // City search: case-insensitive partial match
+        if (query.city && query.city.trim() !== "") {
+            where.city = {
+                contains: query.city.trim(),
+                mode: "insensitive",
+            };
+        }
+
+        // Type filter (buy/rent)
+        if (query.type && query.type.trim() !== "") {
+            where.type = query.type;
+        }
+
+        // Property filter (apartment/house/condo/land)
+        if (query.property && query.property.trim() !== "") {
+            where.property = query.property;
+        }
+
+        // Bedroom filter
+        if (query.bedroom && parseInt(query.bedroom) > 0) {
+            where.bedroom = parseInt(query.bedroom);
+        }
+
+        // Price range filter - only apply when explicitly provided
+        const minPrice = parseInt(query.minPrice);
+        const maxPrice = parseInt(query.maxPrice);
+        if ((!isNaN(minPrice) && minPrice > 0) || (!isNaN(maxPrice) && maxPrice > 0)) {
+            where.price = {};
+            if (!isNaN(minPrice) && minPrice > 0) {
+                where.price.gte = minPrice;
+            }
+            if (!isNaN(maxPrice) && maxPrice > 0) {
+                where.price.lte = maxPrice;
+            }
+        }
+
         const posts = await prisma.post.findMany({
-            where:{
-                city: query.city || undefined,
-                type: query.type || undefined,
-                property: query.property || undefined,
-                city: query.city || undefined,
-                bedroom: parseInt(query.bedroom) || undefined,
-                price:{
-                    gte:parseInt(query.minPrice) || 0,
-                    lte:parseInt(query.maxPrice) || 1000000,
-                }
-            },
+            where,
             include:{
                 savedPosts: {
                     select:{
                         userId: true
                     }
                 }
+            },
+            orderBy: {
+                createdAt: "desc"
             }
         })
-            res.status(200).json(posts)
+        res.status(200).json(posts)
         
     }
     catch(err){

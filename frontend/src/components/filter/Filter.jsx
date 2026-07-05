@@ -1,34 +1,60 @@
 import { useState } from "react";
 import "./filter.scss";
-import {useSearchParams} from "react-router-dom"
+import { useSearchParams } from "react-router-dom";
 
 function Filter() {
-  const [searchParams, setSearchParams] = useSearchParams()
-  const [query,setQuery] = useState({
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [query, setQuery] = useState({
     type: searchParams.get("type") || "",
     city: searchParams.get("city") || "",
     property: searchParams.get("property") || "",
-    minPrice: searchParams.get("minPrice") || 0,
-    maxPrice: searchParams.get("maxPrice") || 1000000,
-    bedroom: searchParams.get("bedroom") || 1,
-  })
+    minPrice: searchParams.get("minPrice") || "",
+    maxPrice: searchParams.get("maxPrice") || "",
+    bedroom: searchParams.get("bedroom") || "",
+  });
 
-const handleChange = e =>{
-  setQuery({
-    ...query,
-    [e.target.name]:e.target.value,
-  })
-}
+  const handleChange = (e) => {
+    const newQuery = {
+      ...query,
+      [e.target.name]: e.target.value,
+    };
+    setQuery(newQuery);
 
-const handleFilter = () => {
-  setSearchParams(query)
-}
+    // Auto-reset results when city input is cleared
+    if (e.target.name === "city" && e.target.value.trim() === "") {
+      const filteredQuery = {};
+      Object.entries(newQuery).forEach(([key, value]) => {
+        if (value !== "" && value !== "0" && value !== 0) {
+          filteredQuery[key] = value;
+        }
+      });
+      setSearchParams(filteredQuery);
+    }
+  };
+
+  const handleFilter = (e) => {
+    if (e) e.preventDefault();
+    // Only include non-empty values in the query string
+    const filteredQuery = {};
+    Object.entries(query).forEach(([key, value]) => {
+      if (value !== "" && value !== "0" && value !== 0) {
+        filteredQuery[key] = value;
+      }
+    });
+    setSearchParams(filteredQuery);
+  };
+
+  const cityLabel = searchParams.get("city");
 
   return (
     <div className="filter">
       <h1>
-        Search results for <b>{searchParams.get("city")}</b>
+        {cityLabel
+          ? <>Search results for <b>{cityLabel}</b></>
+          : "All Properties"
+        }
       </h1>
+      <form onSubmit={handleFilter}>
       <div className="top">
         <div className="item">
           <label htmlFor="city">Location</label>
@@ -38,14 +64,14 @@ const handleFilter = () => {
             name="city"
             placeholder="City Location"
             onChange={handleChange}
-            defaultValue={query.city}
+            value={query.city}
           />
         </div>
       </div>
       <div className="bottom">
         <div className="item">
           <label htmlFor="type">Type</label>
-          <select name="type" id="type" onChange={handleChange}  defaultValue={query.type}>
+          <select name="type" id="type" onChange={handleChange} value={query.type}>
             <option value="">any</option>
             <option value="buy">Buy</option>
             <option value="rent">Rent</option>
@@ -53,7 +79,7 @@ const handleFilter = () => {
         </div>
         <div className="item">
           <label htmlFor="property">Property</label>
-          <select name="property" id="property" onChange={handleChange}  defaultValue={query.property}>
+          <select name="property" id="property" onChange={handleChange} value={query.property}>
             <option value="">any</option>
             <option value="apartment">Apartment</option>
             <option value="house">House</option>
@@ -69,35 +95,37 @@ const handleFilter = () => {
             name="minPrice"
             placeholder="any"
             onChange={handleChange}
-            defaultValue={query.minPrice}
+            value={query.minPrice}
           />
         </div>
         <div className="item">
           <label htmlFor="maxPrice">Max Price</label>
           <input
-            type="text"
+            type="number"
             id="maxPrice"
             name="maxPrice"
             placeholder="any"
             onChange={handleChange}
-            defaultValue={query.maxPrice}
+            value={query.maxPrice}
           />
         </div>
         <div className="item">
           <label htmlFor="bedroom">Bedroom</label>
           <input
-            type="text"
+            type="number"
             id="bedroom"
             name="bedroom"
             placeholder="any"
+            min={0}
             onChange={handleChange}
-            defaultValue={query.bedroom}
+            value={query.bedroom}
           />
         </div>
-        <button onClick={handleFilter}>
+        <button type="submit">
           <img src="/search.png" alt="" />
         </button>
       </div>
+      </form>
     </div>
   );
 }
